@@ -1,11 +1,14 @@
-import { Button } from "@/components/ui/button"
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Home from './pages/Home'
 
 function App() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button>Click me</Button>
-    </div>
+<BrowserRouter>
+<Routes>
+<Route path="/" element={<Home/>}/>
+</Routes>
+</BrowserRouter>
   )
-}
-
-export default App
+};
+export default App;
