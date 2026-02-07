@@ -17,7 +17,7 @@ className="w-full h-full object-cover"/>
  <p className="mb-6 text-lg">
  Quality Gadgets at the best prices
  </p>
- <button className="bg-white text-black px-6 py-3 rounded font-medium hover:bg-gray-200">
+ <button className="bg-white text-black px-6 py-3 rounded font-medium hover:bg-purple-300 cursor-pointer">
   Shop Now
  </button>
 </div>
