@@ -1,22 +1,43 @@
-import type { products } from "@/types/product";
+import { useState } from 'react'
+import { useCart } from '../context/CartContext'
+import type { products } from '@/types/product'
 
-interface Props {
-  product: products;
-}
+type Props = { product: products }
+
 const ProductCard = ({ product }: Props) => {
+  const { addToCart } = useCart()
+  const [added, setAdded] = useState(false)
+
+  const handleAdd = () => {
+    addToCart(product)
+    setAdded(true)
+    setTimeout(() => setAdded(false), 1500)
+  }
+
   return (
-    <div className="border rounded-lg p-4 shadow-sm hover:shadow-md transition">
+    <div className="p-4 border rounded flex flex-col items-center">
       <img
         src={product.image}
         alt={product.name}
-        className="w-full h-40 object-cover rounded"
+        className="w-full h-48 object-contain bg-gray-100 rounded-md"
       />
-      <h3 className="mt-3 text-lg font-semibold"> {product.name}</h3>
-      <p className="text-gray-600 mt-1">रु {product.price}</p>
-      <button className="mt-3 w-full bg-black text-white py-2 rounded hover:bg-gray-800">
-        Add to card
+      <h3 className="font-medium mt-2">{product.name}</h3>
+      <p className="text-gray-600">${product.price}</p>
+
+      <button
+        onClick={handleAdd}
+        className="mt-4 w-full bg-black text-white py-2 rounded hover:bg-gray-800"
+      >
+        Add to Cart
       </button>
+
+      {added && (
+        <p className="mt-2 text-green-600 text-sm text-center">
+          Item added to cart
+        </p>
+      )}
     </div>
-  );
-};
-export default ProductCard;
+  )
+}
+
+export default ProductCard
