@@ -1,28 +1,29 @@
-import type { ReactNode } from "react"
-
 type ModalProps = {
   isOpen: boolean
   onClose: () => void
   title: string
-  children: ReactNode
+  children: React.ReactNode
 }
 
 const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-80 relative">
-        <h2 className="text-xl font-bold mb-4">{title}</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="w-[90%] max-w-md rounded-lg bg-white p-6 shadow-lg">
+        {/* Header */}
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-lg font-semibold">{title}</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-black"
+          >
+            ✕
+          </button>
+        </div>
 
+        {/* Body */}
         {children}
-
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
-        >
-          ✕
-        </button>
       </div>
     </div>
   )

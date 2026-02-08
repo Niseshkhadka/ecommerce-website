@@ -1,58 +1,64 @@
 import { useCart } from '../context/CartContext'
 
 const Cart = () => {
-  const { cart, removeFromCart } = useCart()
+  const { cart, removeFromCart, increaseQty, decreaseQty } = useCart()
 
   if (cart.length === 0) {
     return (
-      <div className="p-6 text-center">
-        <h2 className="text-2xl font-bold">Your cart is empty</h2>
+      <div className="p-10 text-center text-gray-500">
+        Your cart is empty
       </div>
     )
   }
 
-  const total = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  )
-
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Your Cart</h2>
+    <div className="p-6 md:p-10">
+      <h1 className="mb-6 text-2xl font-semibold">Your Cart</h1>
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         {cart.map(item => (
           <div
             key={item.id}
-            className="flex items-center justify-between border p-4 rounded"
+            className="flex items-center gap-4 rounded border p-4 shadow-sm"
           >
-            {/* Left side */}
-            <div>
-              <h3 className="font-medium">{item.name}</h3>
-              <p className="text-sm text-gray-600">
-                ${item.price} × {item.quantity}
-              </p>
+            {/* Product Image */}
+            <img
+              src={item.image}
+              alt={item.name}
+              className="h-20 w-20 object-contain rounded bg-gray-100"
+            />
+
+            {/* Product Info */}
+            <div className="flex-1">
+              <h2 className="font-medium">{item.name}</h2>
+              <p className="text-sm text-gray-600">${item.price}</p>
+
+              <div className="mt-2 flex items-center gap-3">
+                <button
+                  onClick={() => decreaseQty(item.id)}
+                  className="px-2 py-1 border rounded"
+                >
+                  −
+                </button>
+                <span>{item.quantity}</span>
+                <button
+                  onClick={() => increaseQty(item.id)}
+                  className="px-2 py-1 border rounded"
+                >
+                  +
+                </button>
+              </div>
             </div>
 
-            {/* Right side */}
-            <div className="flex items-center gap-4">
-              <p className="font-semibold">
-                ${(item.price * item.quantity).toFixed(2)}
-              </p>
-
-              <button
-                onClick={() => removeFromCart(item.id)}
-                className="text-red-500 text-sm hover:underline"
-              >
-                Remove
-              </button>
-            </div>
+            {/* Remove */}
+            <button
+              onClick={() => removeFromCart(item.id)}
+              className="text-sm text-red-500 hover:underline"
+            >
+              Remove
+            </button>
           </div>
         ))}
-      </div>
-
-      <div className="mt-6 text-right font-bold text-xl">
-        Total: ${total.toFixed(2)}
       </div>
     </div>
   )

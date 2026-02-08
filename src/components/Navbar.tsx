@@ -5,90 +5,104 @@ import Modal from './modal'
 
 const Navbar = () => {
   const { cart } = useCart()
-  const [isLoginOpen, setIsLoginOpen] = useState(false)
-  const [isSignupOpen, setIsSignupOpen] = useState(false)
+  const [loginOpen, setLoginOpen] = useState(false)
+  const [signupOpen, setSignupOpen] = useState(false)
+
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0)
 
   return (
     <>
-      <nav className="w-full px-6 py-4 bg-white shadow-md flex items-center justify-between">
-        {/* Left: Brand */}
-        <Link to="/" className="text-xl font-bold text-dark">
+      {/* NAVBAR */}
+      <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-md text-black">
+        {/* Logo */}
+        <Link to="/" className="text-xl font-semibold ">
           MyStore
         </Link>
 
-        {/* Right: Actions */}
-        <div className="flex items-center gap-6">
+        {/* Actions */}
+        <div className="flex items-center gap-6 text-xl text-black">
           <button
-            className="text-lg text-black hover:underline cursor-pointer "
-            onClick={() => setIsLoginOpen(true)}
+            onClick={() => setLoginOpen(true)}
+            className="hover:underline "
           >
             Login
           </button>
 
           <button
-            className="text-lg text-black hover:underline cursor-pointer"
-            onClick={() => setIsSignupOpen(true)}
+            onClick={() => setSignupOpen(true)}
+            className="hover:underline"
           >
             Signup
           </button>
 
-          <Link to="/cart" className="relative text-white text-lg">
+          <Link to="/cart" className="relative">
             🛒
-            <span className="absolute -top-2 -right-3 bg-black text-white text-xs px-2 py-0.5 rounded-full">
-              {cart.reduce((total, item) => total + item.quantity, 0)}
-            </span>
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-3 flex h-5 w-5 items-center justify-center rounded-full bg-black text-xs">
+                {cartCount}
+              </span>
+            )}
           </Link>
         </div>
       </nav>
 
-      {/* Login Modal */}
+      {/* LOGIN MODAL */}
       <Modal
-        isOpen={isLoginOpen}
-        onClose={() => setIsLoginOpen(false)}
+        isOpen={loginOpen}
+        onClose={() => setLoginOpen(false)}
         title="Login"
       >
-        <form className="flex flex-col gap-3">
+        <form className="flex flex-col gap-5">
           <input
             type="email"
-            placeholder="Email"
-            className="border px-3 py-2 rounded"
+            placeholder="Email address"
+            className="w-full rounded-lg border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black/40"
           />
+
           <input
             type="password"
             placeholder="Password"
-            className="border px-3 py-2 rounded"
+            className="w-full rounded-lg border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black/40"
           />
-          <button className="bg-black text-white py-2 rounded mt-2 hover:bg-gray-800">
+
+          <button className="mt-2 rounded-lg bg-black py-3 text-sm text-white hover:bg-gray-800 transition">
             Login
           </button>
+
+         
         </form>
       </Modal>
 
-      {/* Signup Modal */}
+      {/* SIGNUP MODAL */}
       <Modal
-        isOpen={isSignupOpen}
-        onClose={() => setIsSignupOpen(false)}
-        title="Signup"
+        isOpen={signupOpen}
+        onClose={() => setSignupOpen(false)}
+        title="Create Account"
       >
-        <form className="flex flex-col gap-3">
+        <form className="flex flex-col gap-5">
           <input
             type="text"
-            placeholder="Name"
-            className="border px-3 py-2 rounded"
+            placeholder="Full name"
+            className="w-full rounded-lg border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black/40"
           />
+
           <input
             type="email"
-            placeholder="Email"
-            className="border px-3 py-2 rounded"
+            placeholder="Email address"
+            className="w-full rounded-lg border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black/40"
           />
+
           <input
             type="password"
             placeholder="Password"
-            className="border px-3 py-2 rounded"
+            className="w-full rounded-lg border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black/40"
           />
-          <button className="bg-black text-white py-2 rounded mt-2 hover:bg-gray-800">
-            Signup
+
+          <button className="mt-2 rounded-lg bg-black py-3 text-sm text-white hover:bg-gray-800 transition">
+            Create account
           </button>
+
+       
         </form>
       </Modal>
     </>
