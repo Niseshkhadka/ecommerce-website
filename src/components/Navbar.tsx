@@ -16,7 +16,7 @@ const Navbar = () => {
       <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-md text-black">
         {/* Logo */}
         <Link to="/" className="text-xl font-semibold ">
-          MyStore
+          EStore
         </Link>
 
         {/* Actions */}
@@ -38,7 +38,7 @@ const Navbar = () => {
           <Link to="/cart" className="relative">
             🛒
             {cartCount > 0 && (
-              <span className="absolute -top-2 -right-3 flex h-5 w-5 items-center justify-center rounded-full bg-black text-xs">
+              <span className="absolute -top-2 -right-3 flex h-5 w-5 items-center justify-center rounded-full bg-black text-xs text-white">
                 {cartCount}
               </span>
             )}
